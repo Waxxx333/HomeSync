@@ -21,9 +21,8 @@ Many more to come
 ## Getting Started
 You can use the setup.sh script repeatedly if you change 
 backup devices or paths to backup devices. The setup.sh script 
-will always update ```homesync```. It will check if the script has 
-been ran before and give you the option of adding or editing the 1/2
-backup device paths. The script is compatible with Debian and Arch based
+will always update ```homesync```. It will check if the script ```homesync```
+has been run before by looking for a file in ```$HOME/.config/homesync```. You can run the setup.sh script as many times as needed to update devices' paths. The script is compatible with Debian and Arch based
 systems currently. 
 ### Dependencies:
 The script is made to detect Arch based or Debian based systems. So installing
@@ -51,6 +50,7 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
 - [ ] Expand different distros
 - [ ] Work on notify-send commands
 - [ ] System maintenance option
+- [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 # A TERROR SECURITY PRODUCTION
 ## Author
 * **WaXxX**  [WaXxX GitHub |](https://github.com/waxxx333) [| WaXxX TwItTeR](https://twitter.com/waxxx333)
