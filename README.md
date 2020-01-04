@@ -1,5 +1,5 @@
 # HomeSync
-
+![A-WaXxX Production](waxsync_s.png)
 A script using rsync to backup up your ```$HOME``` directory.
 Use this when you've made changes to your ```$HOME``` or just 
 occasionally. You'll need a backup device, at least one. The
