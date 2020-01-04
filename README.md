@@ -10,7 +10,9 @@ a new installation, login as root, mount the backup device and cp all
 contents to your new home directory. All "hidden" files will be backed up
 (.bashrc, .bash_profile, etc). It also creates a file of all currently installed 
 packages on your machine so you can reinstall them simply. Click the image to 
-watch a demo video.
+watch a demo video. It creates a file ```$HOME/.config/homesync```, that contains
+every time you've used it. It also lets the script know that your device path(s) are
+set in the main script. 
 ### This is only V-0.01
 Many more to come
 
