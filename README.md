@@ -39,6 +39,9 @@ cd HomeSync && chmod a+x *
 sudo ./setup.sh
 homesync
 ```
+### Again, the setup.sh script can be ran as many times as you need.
+It will prompt you for new paths, delete existing path(s) for your
+device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
 ### Many Updates To Come
 - [ ] Backup whole / directory
 - [ ] Give option to archive the backup
