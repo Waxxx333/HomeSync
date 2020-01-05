@@ -91,7 +91,7 @@ It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
 ### Change Log:
 - [x] Make an option to view your Device path(s)
-- [x] Change distros to lower case
+- [x] Change distros to lower case for optimized OS detection
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
 - [ ] Give option to archive the backup
