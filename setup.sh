@@ -17,10 +17,10 @@ if [ $UID != 0 ]; then
         echo -e "Usage: sudo ./$filename $RESET"
         exit
 fi
-# CHECK WHETHER IT'S A DEBIAN OR ARCH BASED SYSTEM
-if grep -q Arch /etc/*release; then
-	OS="Arch";
-	echo -e "$BLINK$WHITE	    You're using an Arch based system $RESET"
+# CHECK WHETHER IT'S A DEBIAN OR arch BASED SYSTEM
+if grep -q arch /etc/*release; then
+	OS="arch";
+	echo -e "$BLINK$WHITE	    You're using an arch based system $RESET"
 elif grep -q bian /etc/*release; then
 	OS="Debian";	
 	echo -e "$BLINK$WHITE	    You're using an Debian based system $RESET"
@@ -39,7 +39,7 @@ else
 	echo -e "Install notify-send now ?"
 	read -p "$SEPERATOR " notify
 	if [ $notify = 'y' ]; then
-		if [ $OS = 'Arch' ]; then
+		if [ $OS = 'arch' ]; then
 		sudo pacman -S --noconfirm notify-send
 		elif [ $OS = 'Debian' ]; then
 			sudo apt-get install notify-send
@@ -62,7 +62,7 @@ else
 	echo -e "Install rsync now ?"
 	read -p "$SEPERATOR " rsync
 	if [ $rsync = 'y' ]; then
-		if [ $OS = 'Arch' ]; then
+		if [ $OS = 'arch' ]; then
 		sudo pacman -S --noconfirm rsync
 		elif [ $OS = 'Debian' ]; then
 			sudo apt-get install rsync
@@ -84,9 +84,9 @@ else
 	echo -e "Install bleachbit now ?"
 	read -p "$SEPERATOR " bleachbit
 	if [ $bleachbit = 'y' ]; then
-		if [ $OS = 'Arch' ]; then
+		if [ $OS = 'Arch{based system}' ]; then
 		sudo pacman -S --noconfirm bleachbit
-		elif [ $OS = 'Debian' ]; then
+		elif [ $OS = 'Debian{based system}' ]; then
 			sudo apt-get install bleachbit
 		fi
 		for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
@@ -110,7 +110,7 @@ fi
 if [ -f $HOME/.config/homesync ]; then
 	echo -e $RESET$WHITE$BOLD$ITALIC"You have alread ran this script. You already have device path(s) in the sync script. Continuing will remove the path(s) and you'll
 be prompted to set new path(s) to your backup device(s)."
-	echo -e "You'll need the EXACT path (/run/media/$USER/device_Name"
+	echo -e "You'll need the EXACT path (/run/media/$USER/device_Name)"
 	echo -e "Press enter to continue, deleting your current path(s)."
 	echo -e "Or press ctl+c to stop"
 	read 
@@ -134,7 +134,7 @@ If you only have one device, only enter the path to the device when prompted wit
 if you are only using one device. If you're only using one device, you'll use the -o{o for one} flag when running the homesync script. Later on, if you need
 to add another device path or add a second device path, you can just re-run this script. Your path(s) from the first
 time will be deleted, so you'll have to re-enter the path to any device you are going to continue using."
-	echo -e "You'll need the EXACT path (/run/media/$USER/device_Name"
+	echo -e "You'll need the EXACT path (/run/media/$USER/device_Name)"
 	echo -e "Press enter to continue. . . "
 	read
 	echo -e "Loading. . . "
