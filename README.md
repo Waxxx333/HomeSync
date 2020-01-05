@@ -89,7 +89,7 @@ homesync -h
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
-### Updates To Come:
+### Change Log:
 - [x] Make an option to view your Device path(s)
 - [x] Change distros to lower case
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
