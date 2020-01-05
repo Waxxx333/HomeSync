@@ -11,7 +11,7 @@ GREEN="\033[38;5;46m"; BOLD='\033[01m' UNDERLINE='\033[04m'
 STRIKE='\033[09m' DIM='\e[2m' BLINK='\e[5m' ITALIC='\e[3m'; TURQUOISE="\033[38;5;45m"
 ORANGE="\033[38;5;202m"; RESET='\033[0m'; INPUT='≽ '; WHITE="\033[38;5;15m"
 BLUE="\033[38;5;20m"; LIGHT_GRAY="\033[38;5;247m"; RED="\033[38;5;196m";
-VERSION="V-0.01"
+VERSION="V-0.02"
 circle=( 
         ◜
         ◠
@@ -23,11 +23,12 @@ circle=(
 # Make sure script is run with sudo permissions
 if [ $UID = 0 ]; then
         echo -e $BOLD$BLINK$DIM$RED"THIS SCRIPT CANNOT BE RUN AS ROOT !"
-        echo -e "Usage: ./$filename [-o{Device One}/-t{Device Two}] $RESET"
+        echo -e "Usage: $filename [-o{Device One}/-t{Device Two}] $RESET"
         exit
 fi
 # Make sure $filename has already been ran
 if [ -z $HOME/.config/homesync ]; then
+	home=$(find $HOME -name HomeSync); cd $home
 	exec setup.sh
 fi
 # CHECK WHETHER IT'S A DEBIAN OR ARCH BASED SYSTEM
@@ -45,7 +46,7 @@ echo -e $GREEN"
                    $WHITE Sync ~/ To Device 
                 A TerrorSecurity Production
 		    Written By WaXxX
-			V-0.01
+			$VERSION
 "
 # Notify-send starting script::
 notify-send --icon=/usr/share/icons/start.png "Starting $filename" "Press CTL+C to stop sync"
@@ -56,6 +57,7 @@ echo -e $GREEN"
 	-t  Backup to $DEVTWO 
 	-o  Backup to $DEVONE
 	-h  Show this menu
+	-p  Show path(s) in $filename
 	Usage: ./$filename -[option]
 "
 }
@@ -196,15 +198,24 @@ one() {
 		echo -e "$RED[!]$WHITE Exiting $RED[!]"
 	fi
 }
-
+paths() {
+	if [ -f /usr/bin/homesync ]; then
+		sed -n '5,6 p' /usr/bin/homesync
+	else
+		echo -e "$RED[!]$WHITE $DEVONE NO DEVICE(s) YET $RED[!]"
+	fi
+}
+if [ -z $1 ]; then
+	help
+fi
 # FLAGS 
-while getopts "oth" opt; do
+while getopts "poths" opt; do
   case "$opt" in
     t) two	# DEVTWO HARD DRIVE
         ;;
     o)  one 	# DEVONE HDD
 		;;
-	c)  custom 	# CUSTOM DEVICE
+	p)  paths 	# SHOW PATH(s) OF DEVICE(s)
         ;;	
     h)  help	# HELP MENU
 		;;
