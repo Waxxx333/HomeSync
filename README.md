@@ -2,16 +2,15 @@
 ![A-WaXxX Production](waxsync_s.png)
 
 A script using rsync & bleachbit to backup up your ```$HOME``` directory to a device.
-Use this when you've made changes to your ```$HOME```directory, or just 
-occasionally, or before a reinstallation. You'll need a backup device, at least one. The
+Use this when you've made changes to your ```$HOME```directory; just 
+occasionally, or before a reinstallation. You'll need a backup device - at least one. The
 script has the option to use two backup devices, but the second device
 is not necessary. This script will make it so you don't have to go 
 through the headache of reconfiguring your desktop preferences. Upon
-a new installation, login as root, mount the backup device and use ```cp -r *``` to copy all
+a new installation: login as root, mount the backup device and use ```cp -r *``` to copy all
 contents of your previous ```$HOME``` directory to your new home directory. All "hidden" files will be backed up
 (.bashrc, .bash_profile, .bash_history, .config, etc). It also creates a file of all currently installed 
-packages on your machine so you can reinstall them simply. It creates a file: ```$HOME/.config/homesync```, that contains
-every time you've used it. It also lets the script know that your device path(s) are
+packages on your machine so you can automatically reinstall them simply. It creates a file: ```$HOME/.config/homesync```, that records the date and time of every time you've ran the it. The file also lets the script know that your device path(s) are
 set in the main script. 
 
 ### V-0.01 Release
@@ -21,17 +20,17 @@ This is a rolling release program
 
 * **Video Demo**  [Click Here](https://vimeo.com/382709077)
 ## Getting Started
-You can use the setup.sh script repeatedly if you change 
-backup devices or paths to backup devices. The setup.sh script 
+You can use the ```setup.sh``` script repeatedly if you change 
+backup devices or paths to backup devices. The ```setup.sh``` script 
 will always update ```homesync```. It will check if the script ```homesync```
-has been run before by looking for a file in ```$HOME/.config/homesync```. You can run the setup.sh script as many times as needed to update devices' paths.
+has been run before by looking for the file in ```$HOME/.config/homesync```. You can run the ```setup.sh``` script as many times as needed to update device's paths.
 
 ### Operating Systems
 The program is currently compatible with Arch and Debian based systems.
 * **EXAMPLE CODE**
 ```Shell
 getOS() {
-if grep -q Arch /etc/os-realease; then
+if grep -q arch /etc/os-realease; then
   OS="Arch"
   OSPACKAGEMGR="sudo pacman -S "
 elif grep -q bian /etc/os-release; then
@@ -91,7 +90,8 @@ homesync -t (for Device Two)
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
-### Updates To Come
+### Updates To Come:
+- [ ] Change distros to lower case
 - [ ] Backup whole ```/root``` directory
 - [ ] Give option to archive the backup
 - [ ] Add a custom sync option
@@ -110,3 +110,5 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
 ## Other team members
 * **K3LD0**  [K3LD0 Twitter](https://twitter.com/K3ld0?s=20)
 * **HaShBr0wN**  [HaShBr0wN GitHub |](https://github.com/hashbrown1013) [| HaShBr0wN TwItTeR](https://twitter.com/stephenahpohlis)
+## Editor 
+* **Sarah Provencher** [Sarah Twitter](https://twitter.com/SarahProvenche6) 
