@@ -1,5 +1,6 @@
 # HomeSync
 ![A-WaXxX Production](waxsync_s.png)
+
 A script using rsync to backup up your ```$HOME``` directory.
 Use this when you've made changes to your ```$HOME``` or just 
 occasionally. You'll need a backup device, at least one. The
@@ -8,42 +9,76 @@ is not necessary. This script will make it so you don't have to go
 through the headache of reconfiguring your desktop preferences. Upon
 a new installation, login as root, mount the backup device and cp all
 contents to your new home directory. All "hidden" files will be backed up
-(.bashrc, .bash_profile, etc). It also creates a file of all currently installed 
-packages on your machine so you can reinstall them simply. Click the image to 
-watch a demo video. It creates a file ```$HOME/.config/homesync```, that contains
+(.bashrc, .bash_profile, .bash_history, .config, etc). It also creates a file of all currently installed 
+packages on your machine so you can reinstall them simply. It creates a file ```$HOME/.config/homesync```, that contains
 every time you've used it. It also lets the script know that your device path(s) are
 set in the main script. 
-### This is only V-0.01
-Many more to come
 
-[![HomeSync](https://i.imgur.com/NJIkdZ7.png)](https://vimeo.com/382709077 "HomeSync Demo")
+### V-0.01 Release
+This is a rolling release program
+## Screenshot 
+![homesync](https://i.imgur.com/NJIkdZ7.png "Optional title")
 
+* **Video Demo**  [Click Here](https://vimeo.com/382709077)
 ## Getting Started
 You can use the setup.sh script repeatedly if you change 
 backup devices or paths to backup devices. The setup.sh script 
 will always update ```homesync```. It will check if the script ```homesync```
-has been run before by looking for a file in ```$HOME/.config/homesync```. You can run the setup.sh script as many times as needed to update devices' paths. The script is compatible with Debian and Arch based
-systems currently. 
-### Dependencies:
-The script is made to detect Arch based or Debian based systems. So installing
-the dependencies is just the click of a button. 
+has been run before by looking for a file in ```$HOME/.config/homesync```. You can run the setup.sh script as many times as needed to update devices' paths.
+
+### Operating Systems
+The program is currently compatible with Arch and Debian based systems.
+* **EXAMPLE CODE**
+```Shell
+getOS() {
+if grep -q Arch /etc/os-realease; then
+  OS="Arch"
+  OSPACKAGEMGR="sudo pacman -S "
+elif grep -q bian /etc/os-release; then
+  OS="Debian"
+  OSPACKAGEMGR="sudo apt-get install "
+fi
+}
 ```
-pacman -S rsync / apt-get install rsync
-pacman -S bleachbit / apt-get install bleachbit
-pacman -S notify-send / apt-get install notify-send
+## Necessary Dependencies:
+It will install necessary dependencies if they're not already installed, without the hassle of typing out the commands yourself.
+* **EXAMPLE CODE**
+```Shell
+if [ ! /usr/bin/rsync ]; then
+  echo -e "rsync not installed"
+  echo -e "Install now ? [y/n]
+  read yesno
+  if [ $yesno = 'y' ]; then
+    $OSPACKAGEMRG rsync
+  else
+    exit
+  fi
+fi
 ```
-## Necessary dependencies:
-It will install necessary dependencies if they're not already installed.
+```Shell
+if [ ! /usr/bin/bleachbit ]; then
+  echo -e "rsync not installed"
+  echo -e "Install now ? [y/n]
+  read yesno
+  if [ $yesno = 'y' ]; then
+    $OSPACKAGEMRG bleachbit
+  else
+    exit
+  fi
+fi
+```
 ### Installation:
-```
+* **Device One will use the -o flag** | **Device Two will use the -t flag**
+```Shell
 cd HomeSync && chmod a+x *
 sudo ./setup.sh
-homesync
+homesync -[options(o/t)]
+homesync -o
 ```
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
-### Many Updates To Come
+### Updates To Come
 - [ ] Backup whole / directory
 - [ ] Give option to archive the backup
 - [ ] Add a custom sync option
@@ -51,6 +86,7 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
 - [ ] Work on notify-send commands
 - [ ] System maintenance option
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
+- [ ] Include package manager help
 # A TERROR SECURITY PRODUCTION
 ## Author
 * **WaXxX**  [WaXxX GitHub |](https://github.com/waxxx333) [| WaXxX TwItTeR](https://twitter.com/waxxx333)
