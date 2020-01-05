@@ -13,7 +13,7 @@ contents of your previous ```$HOME``` directory to your new home directory. All 
 packages on your machine so you can automatically reinstall them simply. It creates a file: ```$HOME/.config/homesync```, that records the date and time of every time you've ran the it. The file also lets the script know that your device path(s) are
 set in the main script. 
 
-### V-0.01 Release
+### Release V-0.02
 This is a rolling release program
 ## Screenshot 
 ![homesync](https://i.imgur.com/NJIkdZ7.png)
@@ -84,21 +84,21 @@ device(s), store them in ```homesync``` and then install ```homesync``` to ```Sh
 ```Shell
 cd HomeSync && chmod a+x *
 sudo ./setup.sh
-homesync -o (for Device One)
-homesync -t (for Device Two)
+homesync -h
 ```
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
 ### Updates To Come:
-- [ ] Change distros to lower case
+- [x] Make an option to view your Device path(s)
+- [x] Change distros to lower case
+- [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
 - [ ] Give option to archive the backup
 - [ ] Add a custom sync option
 - [ ] Expand different distros
 - [ ] Work on notify-send commands
 - [ ] System maintenance option
-- [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Include a package manager helper
 - [ ] Enable to sync from Device One to Device Two
 
