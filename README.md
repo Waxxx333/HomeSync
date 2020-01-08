@@ -92,6 +92,7 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
 ### Change Log:
 - [x] Make an option to view your Device path(s)
 - [x] Change distros to lower case for optimized OS detection
+- [ ] Add an update-script function and git as dependency
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
 - [ ] Give option to archive the backup
