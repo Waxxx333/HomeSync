@@ -100,7 +100,7 @@ two() {
 					bleachbit -c --preset
 					sudo rsync -ahqXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVTWO
 					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
-					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/waxsync
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
 				elif [ $qv = 'v' ]; then
 					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
 					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
@@ -169,7 +169,7 @@ one() {
 					bleachbit -c --preset
 					sudo rsync -ahqXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVONE
 					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
-					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/waxsync
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
 				elif [ $qv = 'v' ]; then
 					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
 					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
