@@ -23,7 +23,7 @@ circle=(
 # Make sure script is run with sudo permissions
 if [ $UID = 0 ]; then
         echo -e $BOLD$BLINK$DIM$RED"THIS SCRIPT CANNOT BE RUN AS ROOT !"
-        echo -e "Usage: $filename [-o{Device One}/-t{Device Two}] $RESET"
+        echo -e "Usage: $filename -h $RESET"
         exit
 fi
 # Make sure $filename has already been ran
