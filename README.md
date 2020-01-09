@@ -1,3 +1,4 @@
+[![GitHub version](https://badge.fury.io/gh/Waxxx333%2FHomeSync.svg)](https://badge.fury.io/gh/Waxxx333%2FHomeSync)
 # HomeSync
 ![A-WaXxX Production](waxsync_s.png)
 
@@ -16,8 +17,7 @@ set in the main script.
 ### Release V-0.02
 This is a rolling release program
 ## Screenshot 
-![homesync](https://i.imgur.com/NJIkdZ7.png)
-
+![homesync](https://i.imgur.com/VOBqagC.png)
 * **Video Demo**  [Click Here](https://vimeo.com/382709077)
 ## Getting Started
 You can use the ```setup.sh``` script repeatedly if you change 
@@ -89,20 +89,19 @@ homesync -h
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
-### Change Log:
-- [x] Make an option to view your Device path(s)
-- [x] Change distros to lower case for optimized OS detection
+### Update Log:
 - [ ] Add an update-script function and git as dependency
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
 - [ ] Give option to archive the backup
 - [ ] Add a custom sync option
 - [ ] Expand different distros
-- [ ] Work on notify-send commands
 - [ ] System maintenance option
 - [ ] Include a package manager helper
 - [ ] Enable to sync from Device One to Device Two
-
+  - [x] Make an option to view your Device path(s)
+  - [x] Change distros to lower case for optimized OS detection
+  - [x] Removed notify-send
 # [!] A TERROR SECURITY PRODUCTION [!]
 ![Imgur](https://imgur.com/Pgat8QI.jpg)
 * **TerrorSecurity** [TerrorSecurity Twitter](https://twitter.com/TerrorSecurity)
