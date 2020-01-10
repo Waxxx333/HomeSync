@@ -3,30 +3,34 @@
 filename=$(basename $0)
 RED="\033[38;5;196m"; DIM='\e[2m'; BOLD='\033[01m'; BLUE="\033[38;5;39m"; YELLOW="\033[38;5;226m"; TURQUOISE="\033[38;5;45m"
 BLINK='\e[5m'; SEPERATOR='≽ '; GREEN="\033[38;5;46m"; WHITE="\033[38;5;15m"; UNDERLINE='\033[04m'; RESET='\033[0m'; ITALIC='\e[3m';
-circle=( 
-        ◜
-        ◠
-        ◝
-        ◞
-        ◡
-        ◟
-      )
+circle=(	 ⠋  
+			 ⠙  
+			 ⠹  
+			 ⠸  
+			 ⠼  
+			 ⠴  
+			 ⠦  
+			 ⠧  
+			 ⠇  
+			 ⠏ 
+		)
 # Make sure running as root
 if [ $UID != 0 ]; then
         echo -e $BOLD$BLINK$DIM$RED"THIS SCRIPT MUST BE RUN AS ROOT !"
         echo -e "Usage: sudo ./$filename $RESET"
         exit
 fi
+
 # CHECK WHETHER IT'S A DEBIAN OR arch BASED SYSTEM
 if grep -q arch /etc/*release; then
 	OS="arch";
-	echo -e "$BLINK$WHITE	    You're using an arch based system $RESET"
+	echo -e "$BLINK$WHITE	    You're using an Arch based system $RESET"
 elif grep -q bian /etc/*release; then
 	OS="Debian";	
-	echo -e "$BLINK$WHITE	    You're using an Debian based system $RESET"
+	echo -e "$BLINK$WHITE	    You're using a Debian based system $RESET"
 fi
-# Start dependency check
 
+: ' Check for dependencies'
 # Check for rsync
 if [ -f /usr/bin/rsync ]; then
 	echo -e $GREEN"	::$DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE rsync installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
@@ -49,6 +53,7 @@ else
 		set -e
 	fi
 fi
+
 # Check for bleachbit
 if [ -f /usr/bin/bleachbit ]; then
 	echo -e $GREEN"	::$DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE bleachbit installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
@@ -71,6 +76,30 @@ else
 		set -e
 	fi
 fi
+
+# Check for git
+if [ -f /usr/bin/git ]; then
+	echo -e $GREEN"	::$DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE git installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
+	hash git
+	for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
+else 
+	echo -e $RED"	::$DIM$BOLD$BLUE[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE git not installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$GREEN::"
+	echo -e "Install git now ?"
+	read -p "$SEPERATOR " git
+	if [ $git = 'y' ]; then
+		if [ $OS = 'Arch{based system}' ]; then
+		sudo pacman -S --noconfirm git
+		elif [ $OS = 'Debian{based system}' ]; then
+			sudo apt-get install git
+		fi
+		for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
+		echo -e $GREEN"	:: $DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE git installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
+	else
+		echo -e $RED"	::$DIM$BOLD$BLUE[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE Aborting script $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$GREEN::"
+		set -e
+	fi
+fi
+
 # Check if script has been ran before
 if [ -f $HOME/.config/homesync ]; then
 	echo -e $RESET$WHITE$BOLD$ITALIC"You have alread ran this script. You already have device path(s) in the sync script. Continuing will remove the path(s) and you'll
@@ -87,6 +116,7 @@ be prompted to set new path(s) to your backup device(s)."
 	for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
 	echo "homesync updated on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
 	echo -e "Loading. . . "
+	for pic in *.png;do sudo cp -f $pic /usr/share/icons;echo "Moving $pic to /usr/share/icons" ;done
 	echo -e $WHITE"Currently mounted devices: $(df -hx tmpfs --output=target)"
 	exec sudo python2 etc.py 
 else
@@ -103,6 +133,7 @@ time will be deleted, so you'll have to re-enter the path to any device you are 
 	read
 	echo -e "Loading. . . "
 	for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
+	for pic in *.png;do sudo cp -f $pic /usr/share/icons;echo "Moving $pic to /usr/share/icons" ;done
 	echo -e $WHITE"Currently mounted devices: $(df -hx tmpfs --output=target)"
 	exec sudo python2 etc.py
 fi
