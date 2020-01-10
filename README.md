@@ -20,7 +20,7 @@ set in the main script.
 ### Release V-0.04
 This is a rolling release program
 ## Screenshot 
-![homesync](https://i.imgur.com/VOBqagC.png)
+![homesync](https://i.imgur.com/9QsfbP1.png)
 * **Video Demo**  [Click Here](https://vimeo.com/382709077)
 ## Getting Started
 You can use the ```setup.sh``` script repeatedly if you change 
