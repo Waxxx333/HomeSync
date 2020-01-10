@@ -221,17 +221,17 @@ if [ -z $1 ]; then
 	help
 fi
 # FLAGS 
-while getopts "upoths" opt; do
+while getopts "upoth" opt; do
   case "$opt" in
     t) two	# DEVTWO HARD DRIVE
         ;;
     o)  one 	# DEVONE HDD
-		;;
-	p)  paths 	# SHOW PATH(s) OF DEVICE(s)
+	;;
+    p)  paths 	# SHOW PATH(s) OF DEVICE(s)
         ;;	
     u)  update	# Update script
-		;;
+	;;
     h)  help	# HELP MENU
-		;;
+	;;
 esac
 done  
