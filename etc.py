@@ -20,8 +20,6 @@ except:
 	print "Device two hasn't been entered [!]"
 rmhomesync = subprocess.check_output("if [ -f /usr/bin/homesync ]; then sudo rm /usr/bin/homesync;fi", shell=True)
 mvhomesync = subprocess.check_output("sudo cp -f homesync /usr/bin/homesync", shell=True)
-import sys 
-from time import sleep
 def load(n=10):
 
 	for i in range(n):
@@ -30,4 +28,3 @@ def load(n=10):
 		sleep(.2)
 print 'loading homesync',
 load()
-start = subprocess.check_output("/usr/bin/homesync -h", shell=True)
