@@ -9,8 +9,6 @@ try:
 	devon = raw_input(WHITE+"DEVICE ONE's PATH ")
 	DEVONE = 'DEVONE="%s"'%(devon)
 	os.system("sed -i '5i%s' homesync"%DEVONE)
-	print "%s"%(DEVONE)
-	print "To homesync to %s, you'll use the flag: homesync -o"%(DEVONE)
 except:
 	print "Device one's path isn't entered in the script [!]"
 try:
@@ -18,7 +16,6 @@ try:
 	DEVTWO = 'DEVTWO="%s"'%(devtw)
 	print "%s"%(DEVTWO)
 	os.system("sed -i '6i%s' homesync"%DEVTWO)
-	print "To homesync to %s, you'll use the flag: homesync -t"%(DEVTWO)
 except:
 	print "Device two hasn't been entered [!]"
 rmhomesync = subprocess.check_output("if [ -f /usr/bin/homesync ]; then sudo rm /usr/bin/homesync;fi", shell=True)
@@ -33,3 +30,4 @@ def load(n=10):
 		sleep(.2)
 print 'loading homesync',
 load()
+start = subprocess.check_output("/usr/bin/homesync -h", shell=True)
