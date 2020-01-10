@@ -1,4 +1,7 @@
 [![GitHub version](https://badge.fury.io/gh/Waxxx333%2FHomeSync.svg)](https://badge.fury.io/gh/Waxxx333%2FHomeSync)
+[![Python Version](https://img.shields.io/badge/Python-V2-<green.svg)](https://shields.io/)
+[![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
+
 # HomeSync
 ![A-WaXxX Production](waxsync_s.png)
 
@@ -110,5 +113,5 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
 ## Other team members
 * **K3LD0**  [K3LD0 Twitter](https://twitter.com/K3ld0?s=20)
 * **HaShBr0wN**  [HaShBr0wN GitHub |](https://github.com/hashbrown1013) [| HaShBr0wN TwItTeR](https://twitter.com/stephenahpohlis)
-## Editor 
+## README.md Editor 
 * **Sarah Provencher** [Sarah Twitter](https://twitter.com/SarahProvenche6) 
