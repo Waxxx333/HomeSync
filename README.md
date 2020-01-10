@@ -17,7 +17,7 @@ contents of your previous ```$HOME``` directory to your new home directory. All 
 packages on your machine so you can automatically reinstall them simply. It creates a file: ```$HOME/.config/homesync```, that records the date and time of every time you've ran the it. The file also lets the script know that your device path(s) are
 set in the main script. 
 
-### Release V-0.03
+### Release V-0.04
 This is a rolling release program
 ## Screenshot 
 ![homesync](https://i.imgur.com/VOBqagC.png)
@@ -92,8 +92,7 @@ homesync -h
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
 device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
-### Update Log:
-- [ ] Add an update-script function and git as dependency
+### Update & Idea Log:
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
 - [ ] Give option to archive the backup
@@ -105,6 +104,7 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
   - [x] Make an option to view your Device path(s)
   - [x] Change distros to lower case for optimized OS detection
   - [x] Removed notify-send
+  - [x] Add an update-script function and git as dependency
 # [!] A TERROR SECURITY PRODUCTION [!]
 ![Imgur](https://imgur.com/Pgat8QI.jpg)
 * **TerrorSecurity** [TerrorSecurity Twitter](https://twitter.com/TerrorSecurity)
