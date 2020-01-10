@@ -2,7 +2,8 @@
 # DEFAULT DRIVES -- CAN BE EDITED BY CHANGING BELOW -
 # - PATHS TO PATHS OF YOUR DEFAULT BACKUP DEVICES
 # VARIABLES
-
+DEVONE="/run/media/wax/home_bk"
+DEVTWO="/run/media/wax/127.0.0.1"
 
 
 
@@ -11,7 +12,7 @@ GREEN="\033[38;5;46m"; BOLD='\033[01m' UNDERLINE='\033[04m'
 STRIKE='\033[09m' DIM='\e[2m' BLINK='\e[5m' ITALIC='\e[3m'; TURQUOISE="\033[38;5;45m"
 ORANGE="\033[38;5;202m"; RESET='\033[0m'; INPUT='≽ '; WHITE="\033[38;5;15m"
 BLUE="\033[38;5;20m"; LIGHT_GRAY="\033[38;5;247m"; RED="\033[38;5;196m";
-VERSION="V-0.02"
+VERSION="V-0.03"
 circle=( 
         ◜
         ◠
@@ -23,7 +24,7 @@ circle=(
 # Make sure script is run with sudo permissions
 if [ $UID = 0 ]; then
         echo -e $BOLD$BLINK$DIM$RED"THIS SCRIPT CANNOT BE RUN AS ROOT !"
-        echo -e "Usage: $filename -h $RESET"
+        echo -e "Usage: $filename [-o{Device One}/-t{Device Two}] $RESET"
         exit
 fi
 # Make sure $filename has already been ran
@@ -48,8 +49,6 @@ echo -e $GREEN"
 		    Written By WaXxX
 			$VERSION
 "
-# Notify-send starting script::
-notify-send --icon=/usr/share/icons/start.png "Starting $filename" "Press CTL+C to stop sync"
 # HELP MENU
 help() {
 echo -e $GREEN" 
@@ -79,7 +78,6 @@ two() {
 			echo -e  $RED$BOLD$UNDERLINE"SYNC $HOME to $DEVTWO [y/n] ? $RESET" 
 			read -p "$INPUT " syncyesno
 			if [ $syncyesno = 'y' ]; then
-				notify-send --icon=/usr/share/icons/waxsync.png "[!] Starting Sync [!]" "Syncing $HOME to $DEVTWO now !"
 				echo -e "Quiet or verbose ?"
 				read -p "$INPUT " qv
 				if [ $qv = 'q' ]; then
@@ -100,7 +98,7 @@ two() {
 					bleachbit -c --preset
 					sudo rsync -ahqXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVTWO
 					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
-					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/waxsync
 				elif [ $qv = 'v' ]; then
 					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
 					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
@@ -118,7 +116,6 @@ two() {
 					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
 					bleachbit -c --preset
 					sudo rsync -ahvXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVTWO
-					notify-send --icon=/usr/share/icons/done.png "Sync finished" "Syncing $HOME to $DEVTWO has been completed !"
 					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
 					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
 				fi
@@ -148,7 +145,6 @@ one() {
 			echo -e  $RED$BOLD$UNDERLINE"SYNC $HOME to $DEVONE ? $RESET" 
 			read -p "$INPUT " syncyesno
 			if [ $syncyesno = 'y' ]; then
-				notify-send --icon=/usr/share/icons/waxsync.png "[!] Starting Sync [!]" "Syncing $HOME to $DEVONE now !"
 				echo -e "Quiet or verbose ?"
 				read -p "$INPUT " qv
 				if [ $qv = 'q' ]; then
@@ -169,7 +165,7 @@ one() {
 					bleachbit -c --preset
 					sudo rsync -ahqXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVONE
 					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
-					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/waxsync
 				elif [ $qv = 'v' ]; then
 					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
 					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
@@ -187,7 +183,6 @@ one() {
 					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
 					bleachbit -c --preset
 					sudo rsync -ahvXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVONE
-					notify-send --icon=/usr/share/icons/done.png "Sync finished" "Syncing $HOME to $DEVONE has been completed !"
 					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
 					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
 				fi
