@@ -26,32 +26,7 @@ elif grep -q bian /etc/*release; then
 	echo -e "$BLINK$WHITE	    You're using an Debian based system $RESET"
 fi
 # Start dependency check
-# Check for notfiy-send
-echo -e $DIM$GREEN"	::$DIM$BOLD$BLUE[$GREEN$BLINK✪$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE Checking for dependencies $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK✪$RESET$DIM$BOLD$BLUE]$GREEN::"
-for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
-if [ -f /usr/bin/notify-send ]; then
-	echo -e $GREEN"	::$DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE notify-send installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
-	hash notify-send
-	notify-send --icon=$PWD/start.png "Installation beginning" "Press ctl+c now to stop the process"
-	for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
-else
-	echo -e $RED"	::$DIM$BOLD$BLUE[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE notify-send not installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$GREEN::"
-	echo -e "Install notify-send now ?"
-	read -p "$SEPERATOR " notify
-	if [ $notify = 'y' ]; then
-		if [ $OS = 'arch' ]; then
-		sudo pacman -S --noconfirm notify-send
-		elif [ $OS = 'Debian' ]; then
-			sudo apt-get install notify-send
-		fi
-		echo -e $GREEN"	:: $DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE notify-send installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
-		notify-send --icon=$PWD/start.png "Notify-send installed" "You now have notify-send installed on your machine. It's a useful tool to set reminders, etc."
-		for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
-	else
-		echo -e $RED"	::$DIM$BOLD$BLUE[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE Aborting script $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$GREEN::"
-		set -e
-	fi
-fi
+
 # Check for rsync
 if [ -f /usr/bin/rsync ]; then
 	echo -e $GREEN"	::$DIM$BOLD$BLUE[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE rsync installed $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$GREEN$BLINK√$RESET$DIM$BOLD$BLUE]$GREEN::"
@@ -95,16 +70,6 @@ else
 		echo -e $RED"	::$DIM$BOLD$BLUE[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE Aborting script $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$GREEN::"
 		set -e
 	fi
-fi
-# Make sure all dependencies are installed
-if [ -f /usr/bin/bleachbit ]; then
-	if [ -f /usr/bin/rsync ]; then
-		if [ -f /usr/bin/notify-send ]; then
-			notify-send --icon=$PWD/done.png "Dependency setup finished !" "All dependencies are now installed on your machine."
-		fi
-	fi
-	else 
-	echo -e $RED"	::$DIM$BOLD$BLUE[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$RESET$BOLD$GREEN:: $WHITE{$DIM$YELLOW$UNDERLINE Aborting script: dependencies not installed ! $RESET$BOLD$WHITE} $GREEN:: $BLUE$DIM[$RED$BLINK✘$RESET$DIM$BOLD$BLUE]$GREEN::"
 fi
 # Check if script has been ran before
 if [ -f $HOME/.config/homesync ]; then
