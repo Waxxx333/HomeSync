@@ -13,14 +13,17 @@ STRIKE='\033[09m' DIM='\e[2m' BLINK='\e[5m' ITALIC='\e[3m'; TURQUOISE="\033[38;5
 ORANGE="\033[38;5;202m"; RESET='\033[0m'; INPUT='≽ '; WHITE="\033[38;5;15m"
 BLUE="\033[38;5;20m"; LIGHT_GRAY="\033[38;5;247m"; RED="\033[38;5;196m";
 VERSION="V-0.03"
-circle=( 
-        ◜
-        ◠
-        ◝
-        ◞
-        ◡
-        ◟
-      )
+circle=(	 ⠋  
+			 ⠙  
+			 ⠹  
+			 ⠸  
+			 ⠼  
+			 ⠴  
+			 ⠦  
+			 ⠧  
+			 ⠇  
+			 ⠏ 
+		)
 # Make sure script is run with sudo permissions
 if [ $UID = 0 ]; then
         echo -e $BOLD$BLINK$DIM$RED"THIS SCRIPT CANNOT BE RUN AS ROOT !"
@@ -57,6 +60,7 @@ echo -e $GREEN"
 	-o  Backup to $DEVONE
 	-h  Show this menu
 	-p  Show path(s) in $filename
+	-u  Update $filename
 	Usage: ./$filename -[option]
 "
 }
@@ -200,11 +204,24 @@ paths() {
 		echo -e "$RED[!]$WHITE $DEVONE NO DEVICE(s) YET $RED[!]"
 	fi
 }
+# Update script
+update() {
+	echo -e $GREEN"[*] $WHITE Update script ? This will reinstall the script if you proceed. $GREEN[*]$RESET"
+	echo -e "Press ENTER to continue or ctl+c to abort: " 
+	read
+	git clone https://github.com/Waxxx333/HomeSync
+	for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+	cd HomeSync
+	chmod a+x *
+	echo -e "$RED[!]$WHITE RESTARTING NOW $RED[!]"
+	sudo ./setup.sh
+}
+# Show help menu if there's no flags
 if [ -z $1 ]; then
 	help
 fi
 # FLAGS 
-while getopts "poths" opt; do
+while getopts "upoths" opt; do
   case "$opt" in
     t) two	# DEVTWO HARD DRIVE
         ;;
@@ -212,6 +229,8 @@ while getopts "poths" opt; do
 		;;
 	p)  paths 	# SHOW PATH(s) OF DEVICE(s)
         ;;	
+    u)  update	# Update script
+		;;
     h)  help	# HELP MENU
 		;;
 esac
