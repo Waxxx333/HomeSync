@@ -17,7 +17,7 @@ contents of your previous ```$HOME``` directory to your new home directory. All 
 packages on your machine so you can automatically reinstall them simply. It creates a file: ```$HOME/.config/homesync```, that records the date and time of every time you've ran the it. The file also lets the script know that your device path(s) are
 set in the main script. 
 
-### Release V-0.02
+### Release V-0.03
 This is a rolling release program
 ## Screenshot 
 ![homesync](https://i.imgur.com/VOBqagC.png)
