@@ -87,7 +87,6 @@ be prompted to set new path(s) to your backup device(s)."
 	for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
 	echo "homesync updated on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
 	echo -e "Loading. . . "
-	for pic in *.png;do sudo cp -f $pic /usr/share/icons;echo "Moving $pic to /usr/share/icons" ;done
 	echo -e $WHITE"Currently mounted devices: $(df -hx tmpfs --output=target)"
 	exec sudo python2 etc.py 
 else
@@ -104,7 +103,6 @@ time will be deleted, so you'll have to re-enter the path to any device you are 
 	read
 	echo -e "Loading. . . "
 	for i in `seq 3`;do for i in ${circle[@]};do echo -ne $TURQUOISE"\r$i";sleep 0.1;done;sleep 0.1;done;echo
-	for pic in *.png;do sudo cp -f $pic /usr/share/icons;echo "Moving $pic to /usr/share/icons" ;done
 	echo -e $WHITE"Currently mounted devices: $(df -hx tmpfs --output=target)"
 	exec sudo python2 etc.py
 fi
