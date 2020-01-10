@@ -2,7 +2,7 @@
 [![Python Version](https://img.shields.io/badge/Python-V2-<green.svg)](https://shields.io/)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 
-# HomeSync
+# HomeSync :house: :arrows_clockwise:
 ![A-WaXxX Production](waxsync_s.png)
 
 A script using rsync & bleachbit to backup up your ```$HOME``` directory to a device.
