@@ -55,30 +55,13 @@ if [ ! /usr/bin/rsync ]; then
     $OSPACKAGEMRG rsync
   else
     exit
+  fi
 else
   echo -e "[*] rsync is installed [*]"
-  fi
 fi
 }
 ```
-```Shell
-getbleachbit() {
-if [ ! /usr/bin/bleachbit ]; then
-  echo -e "[!] rsync not installed [!]"
-  echo -e "[*] Install now ? [*] [y/n]
-  read yesno
-  if [ $yesno = 'y' ]; then
-    $OSPACKAGEMRG bleachbit
-  else
-    echo -e "[!] bleachbit will not be installed [!]"
-    echo -e "[!] re-run the script if you change your mind [!]"
-    exit
-  fi
-else
-  echo -e "[*] bleachbit is installed [!]"
-fi
-}
-```
+
 ### Installation:
 Running ```sudo ./setup.sh``` will prompt your for the path(s) to your backup
 device(s), store them in ```homesync``` and then install ```homesync``` to ```Shell
