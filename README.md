@@ -48,7 +48,9 @@ fi
 ```
 ## Necessary Dependencies:
 It will install necessary dependencies if they're not already installed, without the hassle of typing out the commands yourself.
-
+- rsync
+- bleachbit
+- At least one device to backup contents from ```$HOME```
 ### Installation:
 Running ```sudo ./setup.sh``` will prompt your for the path(s) to your backup
 device(s), store them in ```homesync``` and then install ```homesync``` to ```Shell
