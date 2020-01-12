@@ -30,6 +30,10 @@ has been run before by looking for the file in ```$HOME/.config/homesync```. You
 
 ### Operating Systems
 The program is currently compatible with Arch and Debian based systems.
+```diff
+-I've noticed using my Raspberry Pi 3B that it doesn't allow you to run homesync as a regular user. 
+-Please give feedback if your system does the same so I can fix it.
+```
 * **EXAMPLE CODE**
 ```Shell
 getOS() {
@@ -44,30 +48,13 @@ fi
 ```
 ## Necessary Dependencies:
 It will install necessary dependencies if they're not already installed, without the hassle of typing out the commands yourself.
-* **EXAMPLE CODE**
-```Shell
-getrsync() {
-if [ ! /usr/bin/rsync ]; then
-  echo -e "[!] rsync not installed [!]"
-  echo -e "[*] Install now ? [*] [y/n]
-  read yesno
-  if [ $yesno = 'y' ]; then
-    $OSPACKAGEMRG rsync
-  else
-    exit
-  fi
-else
-  echo -e "[*] rsync is installed [*]"
-fi
-}
-```
 
 ### Installation:
 Running ```sudo ./setup.sh``` will prompt your for the path(s) to your backup
 device(s), store them in ```homesync``` and then install ```homesync``` to ```Shell
 /usr/bin/homesync```. However, you do not need to run it as root.
-* **Device One will use the ```-o``` flag** | **Device Two will use the ```-t``` flag**
-```Shell
+
+```console
 cd HomeSync && chmod a+x *
 sudo ./setup.sh
 homesync -h
