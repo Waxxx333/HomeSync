@@ -84,3 +84,5 @@ device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync```
 * **HaShBr0wN**  [HaShBr0wN GitHub |](https://github.com/hashbrown1013) [| HaShBr0wN TwItTeR](https://twitter.com/stephenahpohlis)
 ## README.md Editor 
 * **Sarah Provencher** [Sarah Twitter](https://twitter.com/SarahProvenche6) 
+
+### **Code compiled**
