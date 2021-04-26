@@ -20,10 +20,12 @@ set in the main script.
 ![homesync](https://i.imgur.com/BuxKeT4.png)
 * **Video Demo**  [Click Here](https://vimeo.com/382709077)
 ## Getting Started
-You can use the ```setup.sh``` script repeatedly if you change 
+~~You can use the ```setup.sh``` script repeatedly if you change 
 backup devices or paths to backup devices. The ```setup.sh``` script 
 will always update ```homesync```. It will check if the script ```homesync```
-has been run before by looking for the file in ```$HOME/.config/homesync```. You can run the ```setup.sh``` script as many times as needed to update device's paths.
+has been run before by looking for the file in ```$HOME/.config/homesync```. You can run the ```setup.sh``` script as many times as needed to update device's paths.~~
+Update: Just run ```./homesync -r``` to reset your path(s). All scripts & the log file are now in ```$HOME/.HomeSync/*```.
+
 
 ### Operating Systems
 The program is currently compatible with Arch and Debian based systems.
@@ -47,20 +49,17 @@ fi
 It will install necessary dependencies if they're not already installed, without the hassle of typing out the commands yourself.
 - rsync
 - bleachbit
+- notify-send
 - At least one device to backup contents from ```$HOME```
 ### Installation:
-Running ```sudo ./setup.sh``` will prompt your for the path(s) to your backup
+Running ```./setup.sh``` will prompt your for the path(s) to your backup
 device(s), store them in ```homesync``` and then install ```homesync``` to ```Shell
 /usr/bin/homesync```. However, you do not need to run it as root.
-
 ```console
 cd HomeSync && chmod a+x *
 ./setup.sh
 homesync -h
 ```
-### Again, the setup.sh script can be ran as many times as you need.
-It will prompt you for new paths, delete existing path(s) for your
-device(s). Just use ```./setup.sh``` and it will update your ```homesync``` script !
 ### Update & Idea Log:
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
