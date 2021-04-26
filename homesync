@@ -1,0 +1,215 @@
+#! /usr/bin/bash
+# DEFAULT DRIVES -- CAN BE EDITED BY CHANGING BELOW -
+# - PATHS TO PATHS OF YOUR DEFAULT BACKUP DEVICES
+# VARIABLES | Maybe add PATH to bash_profile: :$HOME/scripts/HomeSync:
+DEVONE="/run/media/wax/storage"
+DEVTWO="/run/media/wax/Data"
+
+
+
+filename=$(basename $0)
+GREEN="\033[38;5;46m"; BOLD='\033[01m' UNDERLINE='\033[04m' 
+STRIKE='\033[09m' DIM='\e[2m' BLINK='\e[5m' ITALIC='\e[3m'; TURQUOISE="\033[38;5;45m"
+ORANGE="\033[38;5;202m"; RESET='\033[0m'; INPUT='≽ '; WHITE="\033[38;5;15m"
+BLUE="\033[38;5;20m"; LIGHT_GRAY="\033[38;5;247m"; RED="\033[38;5;196m";
+VERSION="V-0.03"
+circle=( 
+        ◜
+        ◠
+        ◝
+        ◞
+        ◡
+        ◟
+      )
+# Make sure script is run with sudo permissions
+if [ $UID = 0 ]; then
+        echo -e $BOLD$BLINK$DIM$RED"THIS SCRIPT CANNOT BE RUN AS ROOT !"
+        echo -e "Usage: $filename [-o{Device One}/-t{Device Two}] $RESET"
+        exit
+fi
+# Make sure $filename has already been ran
+if [ -z $HOME/.HomeSync/HomeSync/homesync ]; then
+	home=$(find $HOME -name HomeSync); cd $home
+	exec $PWD/setup.sh
+fi
+# CHECK WHETHER IT'S A DEBIAN OR ARCH BASED SYSTEM
+if grep -q Arch /etc/*release; then
+	OS="Arch";
+elif grep -q bian /etc/*release; then
+	OS="Debian";	
+fi
+
+# HEADER
+echo -e $GREEN"
+		┳ ┳┏━┓┏┏┓┳━┓┓━┓┓ ┳┏┓┓┏━┓
+		┃━┫┃ ┃┃┃┃┣━ ┗━┓┗┏┛┃┃┃┃  
+		┇ ┻┛━┛┛ ┇┻━┛━━┛ ┇ ┇┗┛┗━┛
+
+                   $WHITE Sync ~/ To Device 
+                A TerrorSecurity Production
+		    Written By WaXxX
+			$VERSION"
+# Notify-send starting script::
+notify-send --icon=/usr/share/icons/start.png "Starting $filename" "Press CTL+C to stop sync"
+# HELP MENU
+help() {
+echo -e $GREEN" Options:
+	-o  Backup to $DEVONE 
+	-t  Backup to $DEVTWO 
+	-h  Show this menu
+	-p  Show path(s) in $filename
+	-r  Reset path configurations
+	Usage: ./$filename -[option]"
+}
+#Reset path(s)
+reset() {
+	echo -e "Press enter to continue updating backup path(s)"
+	read -n 1
+	$HOME/.HomeSync/HomeSync/setup.sh
+}
+# SYNC TO DEVTWO DEVICE
+two() {
+	if [ -d $DEVTWO ]; then
+		echo -e $UNDERLINE$GREEN"[*] $WHITE $DEVTWO $BLUE is mounted $GREEN[*]$RESET"
+		echo -e "Press ENTER to continue: " 
+		read 
+		echo -e "Perform a dry-run or sync to $BOLD$UNDERLINE$BLUE$DEVTWO $RESET" 
+		read -p "[d/s] $INPUT " dryanswer
+		if [ $dryanswer = 'd' ]; then
+			echo -e $RED"Preparing Demo Mode"
+			for i in `seq 3`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+			echo -e $LIGHT_GRAY"Size $ITALIC$BLUE Prior to Sync $(sudo du -sh $DEVTWO)"
+			rsync -aqhXS --dry-run --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVTWO
+			echo -e $LIGHT_GRAY"Size $ITALIC$BLUE After Sync $(sudo du -sh $DEVTWO)"
+		elif [ $dryanswer = 's' ]; then
+			echo -e  $RED$BOLD$UNDERLINE"SYNC $HOME to $DEVTWO [y/n] ? $RESET" 
+			read -p "$INPUT " syncyesno
+			if [ $syncyesno = 'y' ]; then
+				notify-send --icon=/usr/share/icons/waxsync.png "[!] Starting Sync [!]" "Syncing $HOME to $DEVTWO now !"
+				echo -e "Quiet or verbose ?"
+				read -p "$INPUT " qv
+				if [ $qv = 'q' ]; then
+					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					if [ $OS = 'Arch' ]; then 
+						pacman -Qq > $HOME/Documents/all_packages.conf
+						LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -h > $HOME/Documents/all_packages_sizes.conf
+						expac --timefmt='%m/%d/%y %r ' '%l\t%n'|sort -n > $HOME/Documents/all_packages_installed_by_date.conf
+						pacman -Qii >> $HOME/Documents/all_packages_and_info.conf
+					elif [ $OS = 'Debian' ]; then
+						apt list --installed > $HOME/Documents/all_packages.conf
+					else
+						echo -e "Cannot backup installed package names !"
+					fi
+					echo -e $RED$BOLD$BLINK"[!]$RESET$BOLD$WHITE$UNDERLINE SYNC BEGINNING IN 3 SECONDS$RED$RESET$BLINK [!]$RESET$BOLD$GREEN"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					sudo rsync -ahqXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVTWO
+					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/waxsync
+				elif [ $qv = 'v' ]; then
+					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					if [ $OS = 'Arch' ]; then 
+						pacman -Qq > $HOME/Documents/all_packages.conf
+						LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -h > $HOME/Documents/all_packages_sizes.conf
+						expac --timefmt='%m/%d/%y %r ' '%l\t%n'|sort -n > $HOME/Documents/all_packages_installed_by_date.conf
+						pacman -Qii >> $HOME/Documents/all_packages_and_info.conf
+					elif [ $OS = 'Debian' ]; then
+						apt list --installed > $HOME/Documents/all_packages.conf
+					else
+						echo -e "Cannot backup installed package names !"
+					fi
+					echo -e $RED$BOLD$BLINK"[!]$RESET$BOLD$WHITE$UNDERLINE SYNC BEGINNING IN 3 SECONDS$RED$RESET$BLINK [!]$RESET$BOLD$GREEN"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					sudo rsync -ahvXS --info=progress2 --out-format="%t %f %''b" $HOME/ $DEVTWO
+					notify-send --icon=/usr/share/icons/done.png "Sync finished" "Syncing $HOME to $DEVTWO has been completed !"
+					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.config/homesync
+				fi
+			fi
+		fi
+	else
+		echo -e "$RED[!]$WHITE $DEVTWO NOT MOUNTED $RED[!]"
+		echo -e "$RED[!]$WHITE Exiting $RED[!]"
+	fi
+	
+}
+one() {
+	if [ -d $DEVONE ]; then
+		echo -e "Press ENTER to continue: " 
+		read 
+		read -p "[d/s] $INPUT " dryanswer
+		if [ $dryanswer = 'd' ]; then
+			echo -e $RED"Preparing Demo Mode"
+			for i in `seq 3`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+		elif [ $dryanswer = 's' ]; then
+			read -p "$INPUT " syncyesno
+			if [ $syncyesno = 'y' ]; then
+				echo -e "Quiet or verbose ?"
+				read -p "$INPUT " qv
+				if [ $qv = 'q' ]; then
+					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					if [ $OS = 'Arch' ]; then 
+						pacman -Qq > $HOME/Documents/all_packages.conf
+						LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -h > $HOME/Documents/all_packages_sizes.conf
+						expac --timefmt='%m/%d/%y %r ' '%l\t%n'|sort -n > $HOME/Documents/all_packages_installed_by_date.conf
+						pacman -Qii >> $HOME/Documents/all_packages_and_info.conf
+					elif [ $OS = 'Debian' ]; then
+						apt list --installed > $HOME/Documents/all_packages.conf
+					else
+						echo -e "Cannot backup installed package names !"
+					fi
+					echo -e $RED$BOLD$BLINK"[!]$RESET$BOLD$WHITE$UNDERLINE SYNC BEGINNING IN 3 SECONDS$RED$RESET$BLINK [!]$RESET$BOLD$GREEN"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					echo -e "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)"
+					echo "Synchronized on $(date +%A,+%m/%d/%Y) at $(date +%r)" >> $HOME/.HomeSync/HomeSync/homesync.txt
+				elif [ $qv = 'v' ]; then
+					echo -e $GREEN$BOLD$BLINK"Backing up ALL installed packages, package sizes, package info and package dates"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					if [ $OS = 'Arch' ]; then 
+						pacman -Qq > $HOME/Documents/all_packages.conf
+						LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -h > $HOME/Documents/all_packages_sizes.conf
+						expac --timefmt='%m/%d/%y %r ' '%l\t%n'|sort -n > $HOME/Documents/all_packages_installed_by_date.conf
+						pacman -Qii >> $HOME/Documents/all_packages_and_info.conf
+					elif [ $OS = 'Debian' ]; then
+						apt list --installed > $HOME/Documents/all_packages.conf
+					else
+						echo -e "Cannot backup installed package names !"
+					fi
+					echo -e $RED$BOLD$BLINK"[!]$RESET$BOLD$WHITE$UNDERLINE SYNC BEGINNING IN 3 SECONDS$RED$RESET$BLINK [!]$RESET$BOLD$GREEN"
+					for i in `seq 6`;do for i in ${circle[@]};do echo -ne "\r$i";sleep 0.1;done;sleep 0.1;done;echo
+					echo -e "Synchronized on $(date +%A,%m/%d/%Y) at $(date +%r)"
+					echo "Synchronized on $(date +%A,%m/%d/%Y) at $(date +%r)" >> $HOME/.HomeSync/HomeSync/homesync.txt
+				fi
+			fi
+		fi
+	else
+		echo -e "$RED[!]$WHITE Exiting $RED[!]"
+	fi
+}
+paths() {
+	if [ -f /usr/bin/homesync ]; then
+		sed -n '5,6 p' /usr/bin/homesync
+	else
+		echo -e "FUCK"
+	fi
+}
+if [ -z $1 ]; then
+	help
+fi
+# FLAGS 
+while getopts "proths" opt; do
+  case "$opt" in
+    t) two	# DEVTWO HARD DRIVE
+        ;;
+	o) one	# DEVTWO HARD DRIVE
+		;;
+	r) reset	# DEVTWO HARD DRIVE
+		;;
+	p)  paths 	# SHOW PATH(s) OF DEVICE(s)
+        ;;	
+    h)  help	# HELP MENU
+		;;
+esac
+done  
