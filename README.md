@@ -17,7 +17,7 @@ contents of your previous ```$HOME``` directory to your new home directory. All 
 packages on your machine so you can automatically reinstall them simply. It creates a file: ```$HOME/.config/homesync```, that records the date and time of every time you've ran the it. The file also lets the script know that your device path(s) are
 set in the main script. 
 ## Screenshot 
-![homesync](https://i.imgur.com/9QsfbP1.png)
+![homesync](https://i.imgur.com/BuxKeT4.png)
 * **Video Demo**  [Click Here](https://vimeo.com/382709077)
 ## Getting Started
 You can use the ```setup.sh``` script repeatedly if you change 
@@ -55,12 +55,12 @@ device(s), store them in ```homesync``` and then install ```homesync``` to ```Sh
 
 ```console
 cd HomeSync && chmod a+x *
-sudo ./setup.sh
+./setup.sh
 homesync -h
 ```
 ### Again, the setup.sh script can be ran as many times as you need.
 It will prompt you for new paths, delete existing path(s) for your
-device(s). Just use ```sudo ./setup.sh``` and it will update your ```homesync``` script !
+device(s). Just use ```./setup.sh``` and it will update your ```homesync``` script !
 ### Update & Idea Log:
 - [ ] Check for storage on backup device to make sure there's enough space to sync your ```$HOME``` directory
 - [ ] Backup whole ```/root``` directory
